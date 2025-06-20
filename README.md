@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://github.com/Lorrane-Maria/Organizo_Backend/blob/main/Organizo-removebg-preview.png" />
+</p>
+
 # Organizo Backend
 
 API RESTful para o projeto **Organizo**, uma plataforma de gerenciamento para salões de beleza. Este projeto foi desenvolvido como parte da API de Autenticação e Autorização JWT (Emissão e Validação Interna) e AV2, com foco em segurança com JWT, testes unitários e de integração, monitoramento com Prometheus/Grafana e deploy com Docker.
@@ -136,3 +140,7 @@ networks:
 - **Segredos:** A chave JWT e outras senhas são gerenciadas via variáveis de ambiente, conforme `application.yml`. **Nunca** comite segredos no código.
 - **Acesso em Produção:** Em um ambiente produtivo, o acesso aos endpoints `/h2-console` e `/swagger-ui.html` deve ser desabilitado ou protegido por um perfil de `admin`.
 ```
+## 🧑‍💻 DESENVOLVEDORES
+Maurício Antônio Theodoro Neto ([Github](https://github.com/mauricio-theodoro//)) / Contato: mauricioantonionetinho@gmail.com
+Paulo Henrique Vieira ([Github](https://github.com/Paulotjcouto//)) / Contato: paulohenriquecouto2001@gmail.com
+Lorrane Maria ([Linkedin](https://www.linkedin.com/in/lorrane-maria-5396b021b/)) / Contato: lorranemaria57@gmail.com
