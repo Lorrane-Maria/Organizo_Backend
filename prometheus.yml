@@ -1,0 +1,13 @@
+# prometheus.yml (Versão Final com Comentários)
+
+global:
+  scrape_interval: 5s # Frequência com que o Prometheus buscará as métricas. 5s é bom para dev.
+
+scrape_configs:
+  - job_name: 'organizobackend'
+    # Caminho específico onde o Spring Boot Actuator expõe as métricas no formato do Prometheus.
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets: ['host.docker.internal:8080']
+        # 'host.docker.internal' é um DNS especial do Docker que permite que um container
+        # (Prometheus) se conecte a um serviço rodando na máquina host (sua API Spring Boot).

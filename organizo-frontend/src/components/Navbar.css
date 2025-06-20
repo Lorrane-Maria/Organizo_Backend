@@ -1,0 +1,53 @@
+/* Estilos específicos para a barra de navegação, se necessário, além dos globais. */
+/* As classes globais .navbar, .navbar__container, .navbar__logo, .navbar__menu, .navbar__item, .navbar__link em index.css devem cobrir a maior parte. */
+/* Estilos específicos como .navbar__btn-logout podem permanecer ou ser adaptados para usar classes .btn globais. */
+
+/* .navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--color-primary); /* Usando variável global */
+  color: var(--color-text); /* Ajustado para contraste */
+  padding: var(--spacing-sm) var(--spacing-md); /* Usando variáveis globais */
+} */
+
+/* .navbar__brand {
+  font-size: 1.25rem;
+  font-weight: bold;
+} */
+
+/* .navbar__links {
+  list-style: none;
+  display: flex;
+  gap: var(--spacing-md); /* Usando variável global */
+  margin: 0;
+} */
+
+/* .navbar__links a {
+  color: var(--color-text); /* Ajustado */
+  text-decoration: none;
+} */
+
+/* .navbar__links a.active,
+.navbar__links a:hover {
+  color: var(--color-primary); /* Usando variável global */
+  /* border-bottom: 2px solid var(--color-primary); /* Considerar alternativa visual */
+} */
+
+.navbar__btn-logout {
+  /* Estilo mantido, mas pode ser substituído por <Button variant="outline" size="sm"> */
+  background: transparent;
+  border: 1px solid var(--color-muted);
+  color: var(--color-muted);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.navbar__btn-logout:hover {
+  background: var(--color-primary);
+  border-color: var(--color-primary);
+  color: var(--color-text);
+}
+

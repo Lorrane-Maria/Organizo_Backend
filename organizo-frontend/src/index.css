@@ -1,0 +1,996 @@
+/* ==========================================================================
+
+
+   1. RESET E BOX-SIZING
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================================================================
+   2. VARIÁVEIS GLOBAIS (Refinadas)
+   ========================================================================== */
+:root {
+  /* --- Paleta Principal --- */
+  /* Cores base neutras e suaves, mantendo a elegância original */
+  --color-bg:        #FAF6F1; /* Fundo geral da aplicação (creme suave) */
+  --color-surface:   #FFFFFF; /* Cor de superfícies como cards, modais, inputs */
+  --color-border:    #EAE0D5; /* Cor sutil para bordas (complementa o fundo) */
+
+  /* --- Tipografia --- */
+  /* Cores de texto com contraste aprimorado */
+  --color-text:      #1A1A1A; /* Texto principal (preto suave, mais escuro para melhor leitura) */
+  --color-muted:     #555555; /* Texto secundário/descritivo (cinza escuro) */
+
+  /* --- Branding & Acentos --- */
+  /* Cores primária e secundária mantidas, adicionada cor de destaque */
+  --color-primary:   #F2E6DA; /* Cor principal da marca (bege claro) - Usada em fundos sutis, elementos de marca */
+  --color-secondary: #D7C4C1; /* Cor secundária da marca (rosa/bege pálido) - Usada em hover sutil, elementos secundários */
+  --color-accent:    #E07A5F; /* NOVA Cor de destaque (terracota) - Usada em CTAs, links ativos, foco */
+  --color-accent-hover: #D46A4D; /* Variação para hover da cor de destaque */
+
+  /* --- Estados Semânticos --- */
+  /* Cores para feedback ao usuário */
+  --color-success:   #2E7D32; /* Verde para sucesso */
+  --color-error:     #C62828; /* Vermelho para erro */
+  --color-warning:   #F57C00; /* Laranja para aviso */
+  --color-info:      #1976D2; /* Azul para informação */
+
+  /* --- Sombras --- */
+  /* Sombras suavizadas para um visual mais leve */
+  --shadow-sm:       0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md:       0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-lg:       0 4px 10px rgba(0, 0, 0, 0.12);
+
+  /* --- Bordas e Transições --- */
+  --radius-sm:       0.25rem; /* Raio de borda pequeno */
+  --radius:          0.375rem; /* Raio de borda padrão */
+  --radius-lg:       0.5rem;  /* Raio de borda grande */
+  --transition:      0.25s ease-in-out; /* Transição padrão suavizada */
+
+  /* --- Espaçamento (Sistema Consistente) --- */
+  --spacing-xs:      0.25rem; /* 4px */
+  --spacing-sm:      0.5rem;  /* 8px */
+  --spacing-md:      1rem;    /* 16px */
+  --spacing-lg:      1.5rem;  /* 24px */
+  --spacing-xl:      2rem;    /* 32px */
+  --spacing-2xl:     3rem;    /* 48px */
+
+  /* --- Tipografia Base --- */
+  --font-family-base: 'Inter', sans-serif; /* Fonte principal moderna */
+  /* Opcional: --font-family-headings: 'Playfair Display', serif; */
+  --font-size-base: 16px; /* Tamanho base (ajustado em media queries) */
+  --line-height-base: 1.6; /* Altura de linha para boa legibilidade */
+
+  /* --- Breakpoints Responsivos --- */
+  --breakpoint-sm:   576px;
+  --breakpoint-md:   768px;
+  --breakpoint-lg:   992px;
+  --breakpoint-xl:   1200px;
+}
+
+/* ==========================================================================
+   3. ESTILOS DE BASE (Refinados)
+   ========================================================================== */
+html {
+  font-size: var(--font-size-base);
+  scroll-behavior: smooth; /* Rolagem suave */
+  -webkit-font-smoothing: antialiased; /* Melhora renderização de fontes */
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-family-base);
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  line-height: var(--line-height-base);
+  min-height: 100vh;
+  display: flex; /* Para garantir que o layout ocupe toda a altura */
+  flex-direction: column;
+}
+
+/* Ajuste para que #root ocupe o espaço disponível */
+#root {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- Hierarquia Tipográfica Aprimorada --- */
+h1, h2, h3, h4, h5, h6 {
+  /* font-family: var(--font-family-headings, var(--font-family-base)); /* Usa fonte de título se definida */
+  font-weight: 700; /* Mais peso para destaque */
+  line-height: 1.3; /* Linha ligeiramente mais apertada para títulos */
+  margin-top: var(--spacing-lg); /* Espaço antes */
+  margin-bottom: var(--spacing-md); /* Espaço depois */
+  color: var(--color-text); /* Garante cor padrão */
+}
+
+/* Tamanhos de fonte relativos (rem) para escalabilidade */
+h1 { font-size: 2.25rem; } /* 36px */
+h2 { font-size: 1.875rem; } /* 30px */
+h3 { font-size: 1.5rem; }   /* 24px */
+h4 { font-size: 1.25rem; }  /* 20px */
+h5 { font-size: 1.125rem; } /* 18px */
+h6 { font-size: 1rem; }    /* 16px */
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+a {
+  color: var(--color-accent); /* Usa a cor de destaque para links */
+  text-decoration: none;
+  transition: color var(--transition);
+}
+
+a:hover {
+  color: var(--color-accent-hover); /* Escurece no hover */
+  text-decoration: underline; /* Adiciona sublinhado no hover para clareza */
+}
+
+img, svg, video {
+  max-width: 100%; /* Garante responsividade */
+  height: auto;
+  display: block; /* Remove espaço extra abaixo de imagens inline */
+}
+
+/* ==========================================================================
+   4. CONTAINERS
+   ========================================================================== */
+.container {
+  width: 100%;
+  max-width: var(--breakpoint-lg); /* Limita a largura máxima para melhor leitura */
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: var(--spacing-md);
+  padding-right: var(--spacing-md);
+}
+
+/* Variantes de container (se necessário) */
+.container--sm {
+  max-width: var(--breakpoint-md);
+}
+
+.container--lg {
+  max-width: var(--breakpoint-xl);
+}
+
+.section {
+  padding-top: var(--spacing-2xl);
+  padding-bottom: var(--spacing-2xl);
+}
+
+/* ==========================================================================
+   5. BOTÕES (Refinados com Variáveis)
+   ========================================================================== */
+.btn {
+  display: inline-flex; /* Usar flex para alinhar ícones facilmente */
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-sm); /* Espaço entre texto e ícone */
+  padding: 0.75rem 1.5rem; /* Espaçamento interno */
+  font-size: 1rem;
+  font-weight: 600; /* Peso ligeiramente maior */
+  border: 1px solid transparent; /* Borda transparente por padrão */
+  border-radius: var(--radius); /* Raio padrão */
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: center;
+  white-space: nowrap; /* Evita quebra de linha */
+  user-select: none; /* Evita seleção de texto */
+}
+
+/* --- Botão Primário (Destaque/CTA) --- */
+.btn--primary {
+  background-color: var(--color-accent);
+  color: var(--color-surface); /* Texto branco para contraste */
+  border-color: var(--color-accent);
+}
+.btn--primary:hover {
+  background-color: var(--color-accent-hover);
+  border-color: var(--color-accent-hover);
+  transform: translateY(-1px); /* Leve elevação */
+  box-shadow: var(--shadow-sm); /* Sombra sutil */
+}
+
+/* --- Botão Secundário (Ações Menos Importantes) --- */
+.btn--secondary {
+  background-color: var(--color-primary);
+  color: var(--color-text);
+  border-color: var(--color-primary);
+}
+.btn--secondary:hover {
+  background-color: var(--color-secondary);
+  border-color: var(--color-secondary);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* --- Botão Outline (Alternativo/Menos Ênfase) --- */
+.btn--outline {
+  background-color: transparent;
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.btn--outline:hover {
+  background-color: var(--color-accent);
+  color: var(--color-surface);
+}
+
+/* --- Botões Semânticos (Sucesso, Erro) --- */
+.btn--success {
+  background-color: var(--color-success);
+  color: white;
+  border-color: var(--color-success);
+}
+.btn--success:hover {
+  filter: brightness(0.9);
+}
+
+.btn--error {
+  background-color: var(--color-error);
+  color: white;
+  border-color: var(--color-error);
+}
+.btn--error:hover {
+  filter: brightness(0.9);
+}
+
+/* --- Modificadores de Tamanho --- */
+.btn--sm {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.btn--lg {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}
+
+/* --- Modificador de Bloco --- */
+.btn--block {
+  display: flex; /* Mudar para flex para consistência */
+  width: 100%;
+}
+
+/* --- Estilo para botão desabilitado --- */
+.btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* ==========================================================================
+   6. CARD (Refinado com Variáveis)
+   ========================================================================== */
+.card {
+  background-color: var(--color-surface);
+  border-radius: var(--radius-lg); /* Borda um pouco maior */
+  border: 1px solid var(--color-border); /* Borda sutil */
+  box-shadow: var(--shadow-sm); /* Sombra inicial mais leve */
+  overflow: hidden;
+  margin-bottom: var(--spacing-lg); /* Aumentar margem inferior */
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex; /* Flex para controle interno */
+  flex-direction: column;
+}
+
+.card:hover {
+  transform: translateY(-3px); /* Elevação maior no hover */
+  box-shadow: var(--shadow-md); /* Sombra mais pronunciada */
+}
+
+/* --- Seções do Card --- */
+.card__header {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.card__title {
+  /* Estilo direto no elemento h* dentro do card é mais flexível */
+  /* Ex: .card h3 { ... } */
+  padding: var(--spacing-md);
+  margin: 0; /* Resetar margem padrão do título */
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.card__body {
+  padding: var(--spacing-md);
+  flex-grow: 1; /* Permite que o corpo cresça e empurre o footer para baixo */
+}
+
+.card__footer {
+  padding: var(--spacing-md);
+  border-top: 1px solid var(--color-border);
+  background-color: rgba(var(--color-bg-rgb, 250, 246, 241), 0.5); /* Fundo sutil, usar --color-bg com opacidade */
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-sm);
+}
+
+/* --- Variantes de Card --- */
+.card--flat {
+  box-shadow: none;
+  border-color: var(--color-border);
+}
+.card--flat:hover {
+  transform: none;
+  box-shadow: none;
+  border-color: var(--color-muted);
+}
+
+.card--highlight {
+  border-left: 4px solid var(--color-accent);
+}
+
+/* Adicionar variável RGB para opacidade no footer */
+:root {
+  /* ... outras variáveis ... */
+  --color-bg-rgb: 250, 246, 241; /* RGB do --color-bg */
+}
+
+/* ==========================================================================
+   7. LANDING PAGE (Ajustes Iniciais)
+   ========================================================================== */
+.landing {
+  /* Remover estilos antigos, serão refeitos no componente */
+  /* text-align: center;
+  padding: 4rem 1rem;
+  background-color: var(--color-surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden; */
+}
+
+/* Remover pseudo-elemento com logo */
+/* .landing::before { ... } */
+
+.landing__title {
+  /* Estilos serão aplicados diretamente ou via classes utilitárias */
+  /* font-size: 2.5rem;
+  margin-bottom: var(--spacing-md);
+  color: var(--color-primary); */
+}
+
+.landing__subtitle {
+  /* font-size: 1.125rem;
+  margin-bottom: var(--spacing-xl);
+  color: var(--color-muted); */
+}
+
+.landing__actions {
+  /* display: flex;
+  justify-content: center;
+  gap: var(--spacing-md); */
+}
+
+/* ==========================================================================
+   8. AUTENTICAÇÃO (Refinado com Variáveis)
+   ========================================================================== */
+.auth-container {
+  width: 100%;
+  max-width: 420px; /* Um pouco mais largo */
+  margin: var(--spacing-2xl) auto;
+  background-color: var(--color-surface);
+  padding: var(--spacing-xl) var(--spacing-lg); /* Ajustar padding */
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  border: 1px solid var(--color-border);
+}
+
+.auth-container__title {
+  margin-bottom: var(--spacing-xl); /* Mais espaço */
+  color: var(--color-text); /* Usar cor de texto padrão */
+  text-align: center;
+  font-size: 1.75rem; /* Aumentar título */
+  font-weight: 700;
+}
+
+/* Usar classes .form__* diretamente aqui */
+/* .auth-form__group { ... } */
+/* .auth-form__label { ... } */
+/* .auth-form__input { ... } */
+/* .auth-form__input:focus { ... } */
+
+.auth-form__error {
+  /* Usar componente Alert */
+  /* background-color: var(--color-error);
+  color: white;
+  padding: 0.75rem;
+  margin-bottom: var(--spacing-md);
+  border-radius: var(--radius);
+  text-align: center; */
+}
+
+.auth-form__button {
+  /* Aplicar .btn e .btn--block diretamente no botão */
+  /* width: 100%; */
+  margin-top: var(--spacing-lg); /* Adicionar espaço antes do botão */
+}
+
+.auth-form__footer {
+  margin-top: var(--spacing-lg);
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--color-muted);
+}
+
+.auth-form__footer a {
+  color: var(--color-accent); /* Link destacado */
+  font-weight: 500;
+}
+.auth-form__footer a:hover {
+  color: var(--color-accent-hover);
+}
+
+/* ==========================================================================
+   9. LISTAGENS E DASHBOARD (Refinado com Variáveis)
+   ========================================================================== */
+.dashboard {
+  padding: var(--spacing-xl) 0; /* Remover padding lateral, usar container */
+}
+
+.dashboard__header {
+  margin-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--spacing-lg);
+}
+
+.dashboard__title {
+  /* Estilo direto no h* */
+  margin: 0;
+}
+
+.dashboard__subtitle {
+  /* Estilo direto no p */
+  margin-top: var(--spacing-xs);
+  margin-bottom: 0;
+  color: var(--color-muted);
+}
+
+.dashboard__actions {
+  display: flex;
+  gap: var(--spacing-md);
+  flex-wrap: wrap;
+  margin-bottom: var(--spacing-xl);
+}
+
+.dashboard-grid {
+  display: grid;
+  gap: var(--spacing-lg); /* Aumentar gap */
+  /* Colunas definidas por classes utilitárias (ver seção 14) */
+  /* grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); /* Aumentar minmax */
+}
+
+/* Remover estilos específicos de .salons, usar classes genéricas */
+/* .salons__title { ... } */
+/* .salons .card { ... } */
+/* .salons .card button { ... } */
+
+/* ==========================================================================
+   10. FORMULÁRIOS (Refinado com Variáveis)
+   ========================================================================== */
+.form {
+  margin-bottom: var(--spacing-lg);
+}
+
+.form__group {
+  margin-bottom: var(--spacing-lg); /* Aumentar espaço entre grupos */
+}
+
+.form__label {
+  display: block;
+  font-weight: 600; /* Label mais destacado */
+  margin-bottom: var(--spacing-sm);
+  font-size: 0.9rem;
+  color: var(--color-text);
+}
+
+.form__input,
+.form__select,
+.form__textarea {
+  width: 100%;
+  padding: 0.75rem 1rem; /* Ajustar padding */
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  transition: border-color var(--transition), box-shadow var(--transition);
+  background-color: var(--color-surface);
+  font-size: 1rem;
+  color: var(--color-text);
+}
+
+.form__input::placeholder,
+.form__textarea::placeholder {
+  color: var(--color-muted);
+  opacity: 0.7;
+}
+
+.form__input:focus,
+.form__select:focus,
+.form__textarea:focus {
+  outline: none;
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb, 224, 122, 95), 0.2); /* Sombra de foco com cor de destaque */
+}
+
+/* Adicionar variável RGB para foco */
+:root {
+  /* ... outras variáveis ... */
+  --color-accent-rgb: 224, 122, 95; /* RGB do --color-accent */
+}
+
+.form__textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: var(--line-height-base);
+}
+
+.form__select {
+  /* Estilos adicionais para aparência do select, se necessário */
+  appearance: none; /* Remover aparência padrão */
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236B7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 0.5rem center;
+  background-repeat: no-repeat;
+  background-size: 1.5em 1.5em;
+  padding-right: 2.5rem; /* Espaço para a seta */
+}
+
+.form__error-message {
+  color: var(--color-error);
+  font-size: 0.875rem;
+  margin-top: var(--spacing-sm);
+}
+
+.form__hint {
+  color: var(--color-muted);
+  font-size: 0.875rem;
+  margin-top: var(--spacing-sm);
+}
+
+.form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-xl);
+}
+
+/* Estilos para inputs desabilitados */
+.form__input:disabled,
+.form__select:disabled,
+.form__textarea:disabled {
+  background-color: var(--color-bg);
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* ==========================================================================
+   11. ALERTAS E NOTIFICAÇÕES (Refinado com Variáveis)
+   ========================================================================== */
+.alert {
+  padding: var(--spacing-md);
+  border-radius: var(--radius);
+  margin-bottom: var(--spacing-md);
+  display: flex;
+  align-items: flex-start; /* Alinhar no topo para textos longos */
+  border: 1px solid transparent;
+  border-left-width: 4px;
+}
+
+/* --- Cores de Alerta --- */
+.alert--success {
+  background-color: rgba(46, 125, 50, 0.08);
+  color: #166534; /* Tom mais escuro para texto */
+  border-color: var(--color-success);
+}
+
+.alert--error {
+  background-color: rgba(198, 40, 40, 0.08);
+  color: #991B1B; /* Tom mais escuro para texto */
+  border-color: var(--color-error);
+}
+
+.alert--warning {
+  background-color: rgba(245, 124, 0, 0.08);
+  color: #9A3412; /* Tom mais escuro para texto */
+  border-color: var(--color-warning);
+}
+
+.alert--info {
+  background-color: rgba(25, 118, 210, 0.08);
+  color: #1E40AF; /* Tom mais escuro para texto */
+  border-color: var(--color-info);
+}
+
+/* --- Elementos Internos --- */
+.alert__icon {
+  margin-right: var(--spacing-md);
+  flex-shrink: 0; /* Evita que o ícone encolha */
+  margin-top: 0.125rem; /* Ajuste fino vertical */
+  /* O ícone SVG/Font pode ser estilizado aqui */
+}
+
+.alert__content {
+  flex: 1;
+}
+
+.alert__title {
+  font-weight: 600;
+  margin-bottom: var(--spacing-xs);
+  color: currentColor; /* Herda a cor do alerta */
+}
+
+.alert__description {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: currentColor;
+}
+
+.alert__close {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: currentColor;
+  opacity: 0.7;
+  margin-left: var(--spacing-md);
+  padding: 0.25rem;
+  flex-shrink: 0;
+}
+
+.alert__close:hover {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   12. NAVEGAÇÃO (Refinado com Variáveis)
+   ========================================================================== */
+.navbar {
+  background-color: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+  padding-top: var(--spacing-sm); /* Ajustar padding */
+  padding-bottom: var(--spacing-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.navbar__container {
+  /* Usar .container diretamente */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar__logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text); /* Cor de texto padrão */
+  /* Se for imagem: */
+  /* display: block; */
+  /* height: 40px; /* Definir altura */
+  /* width: auto; */
+}
+
+.navbar__menu {
+  display: flex;
+  gap: var(--spacing-sm); /* Reduzir gap */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar__item {
+  position: relative;
+}
+
+.navbar__link {
+  padding: var(--spacing-sm) var(--spacing-md);
+  color: var(--color-muted); /* Links mais suaves */
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  transition: color var(--transition), background-color var(--transition);
+}
+
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--color-accent); /* Cor de destaque no hover/ativo */
+  background-color: rgba(var(--color-accent-rgb, 224, 122, 95), 0.1); /* Fundo sutil */
+}
+
+/* Botão de toggle para mobile */
+.navbar__toggle {
+  display: none; /* Oculto por padrão */
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  color: var(--color-text);
+}
+
+.navbar__toggle svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* ==========================================================================
+   13. RESPONSIVIDADE (Ajustes)
+   ========================================================================== */
+
+/* --- Mobile (até --breakpoint-md) --- */
+@media (max-width: 767.98px) { /* Usar .98 para evitar sobreposição */
+  html {
+    font-size: 15px; /* Leve redução no mobile */
+  }
+
+  .container {
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+
+  /* Ajustes de Títulos */
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.375rem; }
+
+  /* Landing Page (Exemplo, estilos específicos no componente) */
+  .landing__actions {
+    flex-direction: column;
+    gap: var(--spacing-md);
+  }
+
+  /* Botões em Bloco */
+  .btn:not(.btn--inline) { /* Evitar que botões inline fiquem em bloco */
+    /* width: 100%; /* Considerar se isso é sempre desejado */
+  }
+
+  /* Auth Container */
+  .auth-container {
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-lg);
+  }
+
+  /* --- Navegação Mobile --- */
+  .navbar__toggle {
+    display: block; /* Mostrar botão toggle */
+  }
+
+  .navbar__menu {
+    display: none; /* Esconder menu por padrão */
+    position: absolute;
+    top: 100%; /* Abaixo da navbar */
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: var(--color-surface);
+    box-shadow: var(--shadow-md);
+    padding: var(--spacing-md);
+    border-top: 1px solid var(--color-border);
+    gap: var(--spacing-xs); /* Gap menor no mobile */
+  }
+
+  .navbar__menu--open {
+    display: flex; /* Mostrar menu quando aberto */
+  }
+
+  .navbar__item {
+    width: 100%;
+  }
+
+  .navbar__link {
+    display: block; /* Links ocupam toda a largura */
+    padding: var(--spacing-md);
+    text-align: center;
+  }
+
+  /* --- Grids --- */
+  /* Classes utilitárias cuidam disso, mas podemos ter um padrão */
+  .dashboard-grid {
+    /* grid-template-columns: 1fr; /* Coluna única por padrão */
+  }
+
+  /* --- Formulários --- */
+  .form__actions {
+    flex-direction: column;
+    gap: var(--spacing-sm);
+  }
+  .form__actions .btn {
+    width: 100%;
+  }
+}
+
+/* --- Tablet (a partir de --breakpoint-md) --- */
+@media (min-width: 768px) {
+  /* Restaurar menu da navbar */
+  .navbar__toggle {
+    display: none;
+  }
+  .navbar__menu {
+    display: flex;
+    position: static;
+    flex-direction: row;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 0;
+    border-top: none;
+    gap: var(--spacing-sm);
+  }
+  .navbar__item {
+    width: auto;
+  }
+  .navbar__link {
+    display: inline-block;
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: left;
+  }
+
+  /* Formulários inline */
+  .form__group--inline {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: flex-start; /* Alinhar labels/inputs */
+  }
+  .form__group--inline > * {
+    flex: 1;
+    margin-bottom: 0; /* Remover margem inferior dos itens inline */
+  }
+}
+
+/* ==========================================================================
+   14. UTILITÁRIOS DE GRID (Mantidos e Verificados)
+   ========================================================================== */
+.grid { display: grid; }
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+/* Adicionar mais conforme necessário */
+
+/* --- Grid Responsivo (Exemplo: sm:, md:, lg:) --- */
+@media (min-width: 576px) {
+  .sm\:grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .sm\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .sm\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* ... */
+}
+
+@media (min-width: 768px) {
+  .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .md\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  /* ... */
+}
+
+@media (min-width: 992px) {
+  .lg\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .lg\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  /* ... */
+}
+
+/* --- Espaçamentos de Grid (Gap) --- */
+.gap-xs { gap: var(--spacing-xs); }
+.gap-sm { gap: var(--spacing-sm); }
+.gap-md { gap: var(--spacing-md); }
+.gap-lg { gap: var(--spacing-lg); }
+.gap-xl { gap: var(--spacing-xl); }
+.gap-2xl { gap: var(--spacing-2xl); }
+
+/* ==========================================================================
+   15. UTILITÁRIOS DE ESPAÇAMENTO (Mantidos e Verificados)
+   ========================================================================== */
+/* Margens (m, mt, mr, mb, ml, mx, my) */
+.m-0 { margin: 0; }
+.m-xs { margin: var(--spacing-xs); }
+.m-sm { margin: var(--spacing-sm); }
+.m-md { margin: var(--spacing-md); }
+.m-lg { margin: var(--spacing-lg); }
+.m-xl { margin: var(--spacing-xl); }
+.m-2xl { margin: var(--spacing-2xl); }
+.m-auto { margin: auto; }
+
+.mt-0 { margin-top: 0; }
+.mt-xs { margin-top: var(--spacing-xs); }
+.mt-sm { margin-top: var(--spacing-sm); }
+.mt-md { margin-top: var(--spacing-md); }
+.mt-lg { margin-top: var(--spacing-lg); }
+.mt-xl { margin-top: var(--spacing-xl); }
+.mt-2xl { margin-top: var(--spacing-2xl); }
+.mt-auto { margin-top: auto; }
+
+/* ... (mr, mb, ml seguem o mesmo padrão) ... */
+
+.mx-0 { margin-left: 0; margin-right: 0; }
+.mx-xs { margin-left: var(--spacing-xs); margin-right: var(--spacing-xs); }
+.mx-sm { margin-left: var(--spacing-sm); margin-right: var(--spacing-sm); }
+.mx-md { margin-left: var(--spacing-md); margin-right: var(--spacing-md); }
+.mx-lg { margin-left: var(--spacing-lg); margin-right: var(--spacing-lg); }
+.mx-xl { margin-left: var(--spacing-xl); margin-right: var(--spacing-xl); }
+.mx-2xl { margin-left: var(--spacing-2xl); margin-right: var(--spacing-2xl); }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+.my-0 { margin-top: 0; margin-bottom: 0; }
+.my-xs { margin-top: var(--spacing-xs); margin-bottom: var(--spacing-xs); }
+.my-sm { margin-top: var(--spacing-sm); margin-bottom: var(--spacing-sm); }
+.my-md { margin-top: var(--spacing-md); margin-bottom: var(--spacing-md); }
+.my-lg { margin-top: var(--spacing-lg); margin-bottom: var(--spacing-lg); }
+.my-xl { margin-top: var(--spacing-xl); margin-bottom: var(--spacing-xl); }
+.my-2xl { margin-top: var(--spacing-2xl); margin-bottom: var(--spacing-2xl); }
+.my-auto { margin-top: auto; margin-bottom: auto; }
+
+/* Paddings (p, pt, pr, pb, pl, px, py) */
+.p-0 { padding: 0; }
+.p-xs { padding: var(--spacing-xs); }
+.p-sm { padding: var(--spacing-sm); }
+.p-md { padding: var(--spacing-md); }
+.p-lg { padding: var(--spacing-lg); }
+.p-xl { padding: var(--spacing-xl); }
+.p-2xl { padding: var(--spacing-2xl); }
+
+/* ... (pt, pr, pb, pl, px, py seguem o mesmo padrão) ... */
+
+/* ==========================================================================
+   16. OUTROS UTILITÁRIOS (Adicionar conforme necessário)
+   ========================================================================== */
+
+/* --- Visibilidade --- */
+.hidden { display: none; }
+
+/* --- Alinhamento de Texto --- */
+.text-left { text-align: left; }
+.text-center { text-align: center; }
+.text-right { text-align: right; }
+
+/* --- Pesos de Fonte --- */
+.font-normal { font-weight: 400; }
+.font-medium { font-weight: 500; }
+.font-semibold { font-weight: 600; }
+.font-bold { font-weight: 700; }
+
+/* --- Cores de Texto --- */
+.text-primary { color: var(--color-primary); }
+.text-secondary { color: var(--color-secondary); }
+.text-accent { color: var(--color-accent); }
+.text-muted { color: var(--color-muted); }
+.text-success { color: var(--color-success); }
+.text-error { color: var(--color-error); }
+.text-warning { color: var(--color-warning); }
+.text-info { color: var(--color-info); }
+.text-white { color: #fff; }
+
+/* --- Flexbox --- */
+.flex { display: flex; }
+.inline-flex { display: inline-flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.flex-1 { flex: 1 1 0%; }
+.flex-grow { flex-grow: 1; }
+
+/* --- Largura e Altura --- */
+.w-full { width: 100%; }
+.h-full { height: 100%; }
+.min-h-screen { min-height: 100vh; }
+
+/* --- Overflow --- */
+.overflow-hidden { overflow: hidden; }
+
+/* --- Posição --- */
+.relative { position: relative; }
+.absolute { position: absolute; }
+
+/* --- Z-index --- */
+.z-10 { z-index: 10; }
+.z-20 { z-index: 20; }
+/* ... */

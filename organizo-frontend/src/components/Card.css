@@ -1,0 +1,5 @@
+/* Estilos específicos do card, se necessário, além dos globais em index.css */
+/* Exemplo: .card--service { border-left: 4px solid var(--color-info); } */
+/* No momento, os estilos globais em index.css (.card, .card__title, .card__body, etc.) parecem suficientes. */
+/* A classe .card__content usada aqui pode ser mapeada para .card__body do index.css */
+

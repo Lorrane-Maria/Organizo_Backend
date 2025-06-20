@@ -1,0 +1,85 @@
+# ===================================================================
+# CONFIGURAÇÃO DO SERVIDOR
+# ===================================================================
+server:
+  port: 8080
+
+# ===================================================================
+# CONFIGURAÇÕES CENTRAIS DO SPRING BOOT
+# ===================================================================
+spring:
+  application:
+    name: organizo-backend
+
+  # --- Configuração do Banco de Dados (H2 em memória) ---
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: '' # Senha em branco para o usuário 'sa' do H2
+
+  # --- Configuração do Console H2 ---
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  # --- Configuração do JPA e Hibernate ---
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update # Cria/atualiza o schema do banco ao iniciar
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true # Formata o SQL no log para melhor leitura
+
+  # --- Configuração de E-mail (usando Mailtrap para dev) ---
+  mail:
+    host: smtp.mailtrap.io
+    port: 2525
+    username: ${MAILTRAP_USER:seu_usuario} # Use variável de ambiente ou o padrão
+    password: ${MAILTRAP_PASS:sua_senha}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+  # --- Configuração do Redis (para cache) ---
+  redis:
+    host: localhost
+    port: 6379
+
+# ===================================================================
+# CONFIGURAÇÕES DE SEGURANÇA (JWT)
+# ===================================================================
+jwt:
+  # Use uma variável de ambiente para o segredo. O valor após ':' é um padrão para desenvolvimento.
+  secret: ${JWT_SECRET:"413F4428472B4B6250655368566D5970337336763979244226452948404D6351"}
+  # Use uma variável de ambiente para a expiração (padrão: 24 horas)
+  expiration: ${JWT_EXPIRATION:86400000}
+
+# ===================================================================
+# CONFIGURAÇÕES DE DOCUMENTAÇÃO (Swagger/OpenAPI)
+# ===================================================================
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    disable-swagger-default-url: true
+  api-docs:
+    path: /v3/api-docs
+
+# ===================================================================
+# CONFIGURAÇÕES DE MONITORAMENTO (Actuator)
+# ===================================================================
+management:
+  endpoints:
+    web:
+      exposure:
+        # Expondo os endpoints de saúde, métricas e o específico para o Prometheus
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always # Mostra detalhes completos no endpoint /health

@@ -1,0 +1,59 @@
+# docker-compose.yml (Versão Corrigida e Simplificada para o seu Projeto)
+
+version: '3.8'
+
+# Define os serviços (containers) que compõem a nossa aplicação
+services:
+
+  # 1. Serviço da sua API Spring Boot (o backend)
+  organizobackend:
+    # Constrói a imagem Docker a partir do Dockerfile na raiz do projeto
+    build: .
+    container_name: organizo-backend-app
+    # Mapeia a porta 8080 do container para a porta 8080 da sua máquina
+    ports:
+      - "8080:8080"
+    # Coloca este serviço na nossa rede customizada para que os outros possam encontrá-lo
+    networks:
+      - monitor-net
+    # Não precisamos de variáveis de ambiente aqui, pois o application.yml
+    # dentro do JAR já configura o H2 e o JWT com valores padrão.
+
+  # 2. Serviço do Prometheus para coletar as métricas
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    # Mapeia o seu arquivo de configuração local para dentro do container do Prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    # Comando para garantir que o Prometheus use o nosso arquivo de configuração
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+    networks:
+      - monitor-net
+    # Garante que o Prometheus só inicie depois que o backend estiver pronto
+    depends_on:
+      - organizobackend
+
+  # 3. Serviço do Grafana para visualizar as métricas
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      # Define o usuário e senha padrão para o login no Grafana
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+    networks:
+      - monitor-net
+    # Garante que o Grafana só inicie depois que o Prometheus estiver pronto
+    depends_on:
+      - prometheus
+
+# Define a rede customizada que permite que os containers se comuniquem pelo nome do serviço
+networks:
+  monitor-net:
+    driver: bridge

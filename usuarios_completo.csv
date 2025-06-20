@@ -1,0 +1,21 @@
+email,senha,role,nome
+user1@example.com,senha01,DONO_SALAO,Usuário 1
+user2@example.com,senha02,DONO_SALAO,Usuário 2
+user3@example.com,senha03,PROFISSIONAL,Usuário 3
+user4@example.com,senha04,CLIENTE,Usuário 4
+user5@example.com,senha05,CLIENTE,Usuário 5
+user6@example.com,senha06,CLIENTE,Usuário 6
+user7@example.com,senha07,PROFISSIONAL,Usuário 7
+user8@example.com,senha08,CLIENTE,Usuário 8
+user9@example.com,senha09,PROFISSIONAL,Usuário 9
+user10@example.com,senha10,DONO_SALAO,Usuário 10
+user11@example.com,senha11,DONO_SALAO,Usuário 11
+user12@example.com,senha12,CLIENTE,Usuário 12
+user13@example.com,senha13,CLIENTE,Usuário 13
+user14@example.com,senha14,CLIENTE,Usuário 14
+user15@example.com,senha15,PROFISSIONAL,Usuário 15
+user16@example.com,senha16,CLIENTE,Usuário 16
+user17@example.com,senha17,DONO_SALAO,Usuário 17
+user18@example.com,senha18,CLIENTE,Usuário 18
+user19@example.com,senha19,PROFISSIONAL,Usuário 19
+user20@example.com,senha20,CLIENTE,Usuário 20

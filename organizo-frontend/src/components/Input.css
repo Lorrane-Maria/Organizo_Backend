@@ -1,0 +1,5 @@
+/* Estilos específicos para grupos de input, se necessário, além dos globais em index.css */
+/* Exemplo: .input-group--special-validation { ... } */
+/* No momento, as classes globais em index.css (.form__group, .form__label, .form__input) parecem suficientes. */
+/* As classes .input-group, .input-group label, .input-group__field podem ser mapeadas para as classes .form__* */
+
