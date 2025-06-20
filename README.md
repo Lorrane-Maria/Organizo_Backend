@@ -144,5 +144,3 @@ networks:
 Maurício Antônio Theodoro Neto ([Github](https://github.com/mauricio-theodoro//)) / Contato: mauricioantonionetinho@gmail.com
 Paulo Henrique Vieira ([Github](https://github.com/Paulotjcouto//)) / Contato: paulohenriquecouto2001@gmail.com
 Lorrane Maria ([Linkedin](https://www.linkedin.com/in/lorrane-maria-5396b021b/)) / Contato: lorranemaria57@gmail.com
-
-```
